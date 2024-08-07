@@ -1,0 +1,25 @@
+public class MinNonZeroProduct {
+    public static int minNonZeroProduct(int p) {
+        long mod = 1000000007;
+        long maxVal = (1L << p) - 1;
+        long product = (maxVal % mod) * (modExp(maxVal - 1, (1L << (p - 1)) - 1, mod) % mod) % mod;
+        return (int) product;
+    }
+
+    private static long modExp(long base, long exp, long mod) {
+        if (exp == 0) {
+            return 1;
+        }
+        long half = modExp(base, exp / 2, mod);
+        if (exp % 2 == 0) {
+            return (half * half) % mod;
+        } else {
+            return (((half * half) % mod) * base) % mod;
+        }
+    }
+
+    public static void main(String[] args) {
+        int p = 3; 
+        System.out.println("Minimum non-zero product for p = " + p + " is: " + minNonZeroProduct(p));
+    }
+}
